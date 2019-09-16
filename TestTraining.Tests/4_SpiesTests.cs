@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Spies
 {
     [TestClass]
     public class SpiesTests
@@ -9,11 +9,12 @@ namespace TestTraining.Tests
         [TestMethod]
         public void TestDoublesSpyExample()
         {
-            var spy = new MySpy();
+            var spy = new EmailSenderSpy();
             var sut = new DoublesSpyExample(spy);
-            sut.FooBar();
-            // Assert that IFooSp.Bar() was called by DoublesSpyExample
-            Assert.AreEqual(1, spy.BarCount);
+            sut.SendWelcomeEmail("test@test.com");
+            // Assert that EmailSenderSpy.SendEmail() 
+            // was called by DoublesSpyExample
+            Assert.AreEqual(1, spy.SentEmailCount);
         }
     }
 }

@@ -1,36 +1,45 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Stubs
 {
-    public interface IFooS
+    public interface ILanguageProvider
     {
-        string Bar();
+        string GetLanguage();
     }
 
-    public class MyStub : IFooS
+    public class LanguageProviderStub : ILanguageProvider
     {
-        private readonly string _bar;
-        public MyStub(string bar)
+        private readonly string _language;
+        public LanguageProviderStub(string language)
         {
-            _bar = bar;
+            _language = language;
         }
-        public string Bar()
+
+        public string GetLanguage()
         {
-            return _bar;
+            return _language;
         }
     }
 
     public class DoublesStubExample
     {
-        private readonly IFooS _foo;
-        public DoublesStubExample(IFooS foo)
+        private string DefaultLanguage = "es";
+        private IEnumerable<string> SupportedLanguages = new List<string>() { "es", "en" };
+        private readonly ILanguageProvider _languageProvider;
+        public DoublesStubExample(ILanguageProvider languageProvider)
         {
-            _foo = foo;
+            _languageProvider = languageProvider;
         }
 
-        public string ToUpper()
+        public string GetSessionLanguage()
         {
-            return _foo.Bar().ToUpper();
+            var language = _languageProvider.GetLanguage();
+            if (!SupportedLanguages.Any(l => l == language))
+            {
+                return DefaultLanguage;
+            }
+            return language;
         }
     }
 }

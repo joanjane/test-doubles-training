@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Mocks
 {
     [TestClass]
     public class MocksTests
@@ -12,19 +9,21 @@ namespace TestTraining.Tests
         [TestMethod]
         public void TestDoublesMockExample()
         {
-            var mock = new MyMock();
+            var productId = 11111;
+            var mockStockQuantity = 9;
+            var mock = new CurrencyConverterMock();
             // Define mock expectatinons
-            mock.MockBar(expectedNumberParameter: 1, mockValue: 11);
+            mock.MockStock(productId, mockStockQuantity);
 
             // use mock
             var sut = new DoublesMockExample(mock);
-            var result = sut.FooBar(1);
+            var result = sut.FormatStock(productId);
 
             // verify mock expectations
             mock.Verify();
 
             // Assert logic
-            Assert.AreEqual("11", result);
+            Assert.AreEqual("Last units!", result);
         }
     }
 }

@@ -1,21 +1,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Fakes
 {
     [TestClass]
     public class FakesTests
     {
 
         [TestMethod]
-        [DataRow("aa", "AA")]
-        [DataRow("AA", "AA")]
-        public void TestDoublesFakeExample(string input, string expected)
+        public void TestDoublesFakeExample()
         {
-            var fake = new MyFakeRepository();
+            var fake = new MyFakeCache();
             var sut = new DoublesFakeExample(fake);
-
-            sut.Initialize(input);
-            Assert.AreEqual(expected, sut.ToUpper());
+            var language = "es";
+            sut.SetLanguage(language);
+            Assert.AreEqual(language, sut.GetLanguage());
         }
     }
 }

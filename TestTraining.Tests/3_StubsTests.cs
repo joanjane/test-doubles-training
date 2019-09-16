@@ -1,19 +1,18 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Stubs
 {
     [TestClass]
     public class StubsTests
     {
 
         [TestMethod]
-        [DataRow("aa", "AA")]
-        [DataRow("AA", "AA")]
-        public void TestDoublesStubExample(string input, string expected)
+        public void TestDoublesStubExample()
         {
-            var stub = new MyStub(input);
+            var language = "fr";
+            var stub = new LanguageProviderStub(language);
             var sut = new DoublesStubExample(stub);
-            Assert.AreEqual(expected, sut.ToUpper());
+            Assert.AreEqual("es", sut.GetSessionLanguage());
         }
     }
 }

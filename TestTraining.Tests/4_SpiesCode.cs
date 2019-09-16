@@ -1,33 +1,31 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Spies
 {
-    public interface IFooSp
+    public interface IEmailSender
     {
-        void Bar();
+        void SendEmail(string address, string content);
     }
 
-    public class MySpy : IFooSp
+    public class EmailSenderSpy : IEmailSender
     {
-        public int BarCount { get; private set; }
+        public int SentEmailCount { get; private set; }
 
-        public void Bar()
+        public void SendEmail(string address, string content)
         {
-            BarCount++;
+            SentEmailCount++;
         }
     }
 
     public class DoublesSpyExample
     {
-        private readonly IFooSp _foo;
-        public DoublesSpyExample(IFooSp foo)
+        private readonly IEmailSender _emailSender;
+        public DoublesSpyExample(IEmailSender emailSender)
         {
-            _foo = foo;
+            _emailSender = emailSender;
         }
 
-        public void FooBar()
+        public void SendWelcomeEmail(string address)
         {
-            _foo.Bar();
+            _emailSender.SendEmail(address, "Greetings");
         }
     }
 }

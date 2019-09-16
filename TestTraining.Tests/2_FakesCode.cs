@@ -1,44 +1,45 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Fakes
 {
-    public interface IFooRepository
+    public interface ICache
     {
-        string Get();
-        void Set(string bar);
+        string Get(string key);
+        void Set(string key, string value);
     }
 
-    public class MyFakeRepository : IFooRepository
+    public class MyFakeCache : ICache
     {
-        private string Bar { get; set; }
+        Dictionary<string, string> Entries { get; set; }
 
-        public string Get()
+        public string Get(string key)
         {
-            return Bar;
+            return Entries[key];
         }
 
-        public void Set(string bar)
+        public void Set(string key, string value)
         {
-            Bar = bar;
+            Entries[key] = value;
         }
     }
 
     public class DoublesFakeExample
     {
-        private readonly IFooRepository _foo;
-        public DoublesFakeExample(IFooRepository foo)
+        private const string CacheKey = "language";
+        private readonly ICache _cache;
+        public DoublesFakeExample(ICache foo)
         {
-            _foo = foo;
+            _cache = foo;
         }
 
-        public void Initialize(string value)
+        public string GetLanguage()
         {
-            _foo.Set(value);
+            return _cache.Get(CacheKey);
         }
 
-        public string ToUpper()
+        public void SetLanguage(string value)
         {
-            return _foo.Get().ToUpper();
+            _cache.Set(CacheKey, value);
         }
     }
 }

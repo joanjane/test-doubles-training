@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Dummies
 {
     [TestClass]
     public class DummiesTests
@@ -11,7 +11,7 @@ namespace TestTraining.Tests
         [DataRow("AA", "AA")]
         public void TestDoublesDummyExample(string input, string expected)
         {
-            var dummy = new MyDummy();
+            var dummy = new DummyLogger();
             var sut = new DoublesDummyExample(dummy);
             Assert.AreEqual(expected, sut.ToUpper(input));
         }

@@ -1,33 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Mocks
 {
-    public interface IFooM
+    public interface IStockQuery
     {
-        int Bar(int number);
+        int CountProductStock(int productId);
     }
 
-    public class MyMock : IFooM
+    public class CurrencyConverterMock : IStockQuery
     {
         private Dictionary<int, int> _mocks = new Dictionary<int, int>();
         private List<int> _verifiedMocks = new List<int>();
 
-        public int Bar(int number)
+        public int CountProductStock(int productId)
         {
-            if (!_mocks.ContainsKey(number))
+            if (!_mocks.ContainsKey(productId))
             {
-                throw new Exception($"Parameter Number '{number}' was not expected in mock");
+                throw new Exception($"Mock of product {productId} was not set");
             }
-            _verifiedMocks.Add(number);
-            return _mocks[number];
+            _verifiedMocks.Add(productId);
+            return _mocks[productId];
         }
 
-        public void MockBar(int expectedNumberParameter, int mockValue)
+        public void MockStock(int productId, int mockStockValue)
         {
-            _mocks[expectedNumberParameter] = mockValue;
+            _mocks[productId] = mockStockValue;
         }
 
         public void Verify()
@@ -43,15 +42,20 @@ namespace TestTraining.Tests
 
     public class DoublesMockExample
     {
-        private readonly IFooM _foo;
-        public DoublesMockExample(IFooM foo)
+        private readonly IStockQuery _stockQuery;
+        public DoublesMockExample(IStockQuery stockQuery)
         {
-            _foo = foo;
+            _stockQuery = stockQuery;
         }
 
-        public string FooBar(int number)
+        public string FormatStock(int productId)
         {
-            return _foo.Bar(number).ToString();
+            var stock = _stockQuery.CountProductStock(productId);
+            if (stock < 10) 
+            {
+                return "Last units!";
+            }
+            return $"There are {stock} units";
         }
     }
 }

@@ -1,28 +1,26 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace TestTraining.Tests
+namespace TestTraining.Tests.Dummies
 {
-    public interface IFooD
+    public interface ILogger
     {
-        void Bar();
+        void Log(string message);
     }
 
-    public class MyDummy : IFooD
+    public class DummyLogger : ILogger
     {
-        public void Bar() { }
+        public void Log(string message) { }
     }
 
     public class DoublesDummyExample
     {
-        private readonly IFooD _foo;
-        public DoublesDummyExample(IFooD foo)
+        private readonly ILogger _logger;
+        public DoublesDummyExample(ILogger foo)
         {
-            _foo = foo;
+            _logger = foo;
         }
 
         public string ToUpper(string input)
         {
-            _foo.Bar();
+            _logger.Log($"Converting {input} to upper");
             return input.ToUpper();
         }
     }
