@@ -8,7 +8,7 @@ namespace TestTraining.Kata.Tests
     [TestClass]
     public class EmojiSalesRendererTests
     {
-        // Este test funciona a veces. Cómo podemos solucionarlo?
+        // [Ejercicio] Este test funciona a veces. Cómo podemos solucionarlo?
         [TestMethod]
         public async Task TestRenderLastHourSales()
         {
