@@ -1,5 +1,3 @@
-## Create a dotnet core test project in command line
-
-1. Create a folder with the name of the project
-2. Inside that folder, run `dotnet new mstest`
-3. Finally, run tests `dotnet test`
+# Test doubles samples
+This project contains some samples for different types of test doubles/substitutes.
+In TestabilityQuiz folder, you'll find some challenges that have some problems and must be fixed. Find the solution.
